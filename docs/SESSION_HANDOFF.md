@@ -40,7 +40,7 @@ The current checks are only literal-text checks. They can give false positives a
 
 ## Verification actually performed in the first build session
 
-- Initial committed implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Always query `git rev-parse HEAD` for the current latest commit; this checkpoint is not guaranteed to remain HEAD after follow-up fixes.
+- Initial implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Latest source-and-test checkpoint before this handoff-document refresh: `31f62d6f81a62660a5ed6adcebab7e012f5bd538`. Always query `git rev-parse HEAD` and `git status` for the actual current state; these checkpoint SHAs are historical references, not a promise that either one is still HEAD.
 
 - Eight course-validator unit tests passed using the globally available Node test runner and `ts-node` (not the project's `npm test` command).
 - TypeScript checks passed for the project source and test files using global `tsc`, Node typings available in the environment, and a temporary minimal VS Code declaration shim. This helps catch local errors but is not a replacement for compiling with the official `@types/vscode` package.

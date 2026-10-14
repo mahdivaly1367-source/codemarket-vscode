@@ -35,3 +35,10 @@
 **Decision:** `docs/SESSION_HANDOFF.md` is a required continuation document. Update it at each meaningful milestone.
 
 **Reason:** The user intends to continue work across separate ChatGPT conversations. This file should record verified repository state and next steps, not hidden reasoning.
+
+
+## D-007 — Separate programming language from instructional locale
+
+**Decision:** Course metadata uses `programmingLanguage` (for example, `javascript`) and `contentLocale` (for example, `fa-IR`) as separate fields.
+
+**Reason:** A JavaScript course may be taught in Persian, English, or another natural language. Marketplace localization must not confuse the language being learned with the language of the lesson text.
