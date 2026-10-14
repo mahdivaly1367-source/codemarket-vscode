@@ -2,6 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $repo = 'mahdivaly1367-source/codemarket-vscode'
 $repoUrl = "https://github.com/$repo.git"
+$acceptedRemoteUrls = @($repoUrl, "https://github.com/$repo", 'git@github.com:mahdivaly1367-source/codemarket-vscode.git')
 
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     throw 'Git is not installed or is not available on PATH.'
@@ -25,18 +26,24 @@ if ($LASTEXITCODE -ne 0 -or $insideRepo -ne 'true') {
 }
 
 $head = git rev-parse --verify HEAD 2>$null
-if ($LASTEXITCODE -ne 0) {
-    git add .
-    if ($LASTEXITCODE -ne 0) { throw 'Could not stage the initial files.' }
+$hasCommit = ($LASTEXITCODE -eq 0)
+git add .
+if ($LASTEXITCODE -ne 0) { throw 'Could not stage project files.' }
+
+$pendingChanges = git status --porcelain
+if (-not $hasCommit) {
     git commit -m 'feat: initial CodeMarket VS Code learning MVP'
     if ($LASTEXITCODE -ne 0) { throw 'Initial commit failed. Check Git identity and try again.' }
+} elseif ($pendingChanges) {
+    git commit -m 'chore: prepare CodeMarket GitHub publication'
+    if ($LASTEXITCODE -ne 0) { throw 'Could not commit pending project changes. Check Git identity and inspect git status.' }
 }
 
 $remote = git remote get-url origin 2>$null
 if ($LASTEXITCODE -ne 0) {
     $remote = $null
 }
-if ($remote -and $remote -ne $repoUrl -and $remote -ne "https://github.com/$repo") {
+if ($remote -and $remote -notin $acceptedRemoteUrls) {
     throw "An origin remote already points somewhere else: $remote. Refusing to overwrite it."
 }
 
