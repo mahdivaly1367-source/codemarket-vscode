@@ -1,4 +1,6 @@
 $ErrorActionPreference = 'Stop'
+# Keep native command failures inspectable through $LASTEXITCODE, including expected 'not found' checks.
+$PSNativeCommandUseErrorActionPreference = $false
 
 $repo = 'mahdivaly1367-source/codemarket-vscode'
 $repoUrl = "https://github.com/$repo.git"
