@@ -13,7 +13,7 @@ This file exists specifically so work can continue in a **new ChatGPT conversati
 
 ## Current repository/remote state
 
-The project source is initially prepared as a local Git repository. The connected GitHub tool available during the first build can inspect and edit existing repositories but does not expose a create-repository action, so do **not** claim that the GitHub remote was created or pushed unless a later session verifies it. A direct repository lookup returned HTTP 404 for the intended remote, so the remote is not published at this checkpoint. The intended remote is `https://github.com/mahdivaly1367-source/codemarket-vscode` after the user creates it or an available tool successfully creates it. Never put this project into one of the user's unrelated repositories.
+The repository is now published publicly at `https://github.com/mahdivaly1367-source/codemarket-vscode`, on default branch `main`. On 2026-10-14, the user successfully ran `scripts/publish-to-github.ps1` on Windows; it created the public repository, pushed 81 Git objects, and configured local `main` to track `origin/main`. GitHub API verification confirms the current `main` commit is `10257bf50d3ffbbe93655a2a5b8123f0425dc127` (`chore: prepare CodeMarket GitHub publication`). Before further local work, verify `git status`, `git rev-parse HEAD`, and `git remote -v`; pull with `git pull --ff-only` if the local checkout is behind. Never put this project into one of the user's unrelated repositories.
 
 ## Origin of the product idea
 
@@ -46,7 +46,7 @@ The current checks are only literal-text checks. They can give false positives a
 - TypeScript checks passed for the project source and test files using global `tsc`, Node typings available in the environment, and a temporary minimal VS Code declaration shim. This helps catch local errors but is not a replacement for compiling with the official `@types/vscode` package.
 - The embedded Webview JavaScript passed a syntax parse check.
 - `npm install` did not complete because the environment could not resolve `registry.npmjs.org` (`EAI_AGAIN`). Therefore `npm run verify`, the actual esbuild bundle, VS Code Extension Development Host testing, and VSIX packaging remain unverified.
-- The PowerShell publishing helper was prepared but could not be run in this Linux environment. It must be tested on the user's Windows machine; it checks the signed-in GitHub account, creates a public repository if needed, and refuses to overwrite a different origin.
+- The user successfully ran the PowerShell publishing helper on Windows. Reported output confirms a public repo was created at `https://github.com/mahdivaly1367-source/codemarket-vscode`, `main` was pushed, and local `main` tracks `origin/main`. GitHub API independently confirmed commit `10257bf50d3ffbbe93655a2a5b8123f0425dc127`. The actual current local working-tree cleanliness must still be checked on the user's machine.
 - No GUI smoke test or independent security audit has been performed.
 
 ## Required next actions
@@ -69,4 +69,4 @@ The current checks are only literal-text checks. They can give false positives a
 
 ## How to continue in a new chat
 
-Ask the assistant to open the GitHub repository above, read this file first, inspect the current branch/commit and working tree, then continue from the **next uncompleted item**. If the repository URL is still unavailable, ask the user to provide the repository URL or to publish the local project; do not infer that this handoff file alone means GitHub contains the latest source.
+Ask the assistant to open `https://github.com/mahdivaly1367-source/codemarket-vscode`, read this file first, verify the latest `main` commit and inspect relevant source files before editing. Ask it to continue from the **next uncompleted item**, preserve existing work, and update this handoff file with actual commits and test results at the end of each stage. If local work is involved, first verify `git status`, `git rev-parse HEAD`, and `git remote -v`; pull remote updates safely before editing.
