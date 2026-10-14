@@ -40,7 +40,7 @@ The current checks are only literal-text checks. They can give false positives a
 
 ## Verification actually performed in the first build session
 
-- Initial implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Latest source-and-test checkpoint before this handoff-document refresh: `31f62d6f81a62660a5ed6adcebab7e012f5bd538`. Latest commit at this packaging checkpoint: `b03c1f8517c18cdbd5a8b60961552829254d419b` (publishing-script handling). Always query `git rev-parse HEAD` and `git status` for the actual current state; these SHAs are historical references, not a promise that they remain HEAD after later edits.
+- Initial implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Latest source-and-test checkpoint before this handoff-document refresh: `31f62d6f81a62660a5ed6adcebab7e012f5bd538`. Repository checkpoint immediately before this handoff-note update: `5aefbc19c91815653988656657c1e62d617023d5` (PowerShell publishing helper was refined but not executed on Windows). The latest source-and-test checkpoint remains `31f62d6f81a62660a5ed6adcebab7e012f5bd538`. Always query `git rev-parse HEAD` and `git status` for the actual current state; these SHAs are historical references, not a promise that they remain HEAD after later edits.
 
 - Eight course-validator unit tests passed using the globally available Node test runner and `ts-node` (not the project's `npm test` command).
 - TypeScript checks passed for the project source and test files using global `tsc`, Node typings available in the environment, and a temporary minimal VS Code declaration shim. This helps catch local errors but is not a replacement for compiling with the official `@types/vscode` package.
