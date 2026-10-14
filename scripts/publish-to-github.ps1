@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Continue'
 # Keep native command failures inspectable through $LASTEXITCODE, including expected 'not found' checks.
 $PSNativeCommandUseErrorActionPreference = $false
 
@@ -71,3 +71,4 @@ if ($LASTEXITCODE -ne 0) {
 
 Write-Host "Done. Repository: https://github.com/$repo" -ForegroundColor Green
 Write-Host 'Next: open docs/SESSION_HANDOFF.md before continuing in a new ChatGPT conversation.'
+
