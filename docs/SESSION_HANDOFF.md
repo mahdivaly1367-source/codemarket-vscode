@@ -40,12 +40,13 @@ The current checks are only literal-text checks. They can give false positives a
 
 ## Verification actually performed in the first build session
 
-- Initial implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Latest source-and-test checkpoint before this handoff-document refresh: `31f62d6f81a62660a5ed6adcebab7e012f5bd538`. Always query `git rev-parse HEAD` and `git status` for the actual current state; these checkpoint SHAs are historical references, not a promise that either one is still HEAD.
+- Initial implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Latest source-and-test checkpoint before this handoff-document refresh: `31f62d6f81a62660a5ed6adcebab7e012f5bd538`. Latest commit at this packaging checkpoint: `b03c1f8517c18cdbd5a8b60961552829254d419b` (publishing-script handling). Always query `git rev-parse HEAD` and `git status` for the actual current state; these SHAs are historical references, not a promise that they remain HEAD after later edits.
 
 - Eight course-validator unit tests passed using the globally available Node test runner and `ts-node` (not the project's `npm test` command).
 - TypeScript checks passed for the project source and test files using global `tsc`, Node typings available in the environment, and a temporary minimal VS Code declaration shim. This helps catch local errors but is not a replacement for compiling with the official `@types/vscode` package.
 - The embedded Webview JavaScript passed a syntax parse check.
 - `npm install` did not complete because the environment could not resolve `registry.npmjs.org` (`EAI_AGAIN`). Therefore `npm run verify`, the actual esbuild bundle, VS Code Extension Development Host testing, and VSIX packaging remain unverified.
+- The PowerShell publishing helper was prepared but could not be run in this Linux environment. It must be tested on the user's Windows machine; it checks the signed-in GitHub account, creates a public repository if needed, and refuses to overwrite a different origin.
 - No GUI smoke test or independent security audit has been performed.
 
 ## Required next actions
