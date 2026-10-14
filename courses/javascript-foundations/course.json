@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "id": "javascript-foundations",
+  "title": "JavaScript Foundations",
+  "language": "JavaScript",
+  "description": "یک دورهٔ کوتاه آزمایشی برای آزمودن مسیر یادگیری تعاملی CodeMarket.",
+  "lessons": [
+    {
+      "id": "personalized-greeting",
+      "title": "اولین تابع تو",
+      "goal": "یک تابع بنویس که بتواند سلام شخصی‌سازی‌شده برگرداند.",
+      "content": "تابع، بخشی از کد است که می‌توان آن را فراخوانی کرد. در این تمرین تابع greet یک نام می‌گیرد و باید یک پیام سلام برگرداند. در JavaScript می‌توان از template literal برای قرار دادن مقدار متغیر داخل رشته استفاده کرد.",
+      "steps": [
+        "فایل تمرین را ایجاد یا باز کن.",
+        "عبارت TODO را با یک پیام که شامل Hello, و مقدار name باشد جایگزین کن.",
+        "برای ترکیب متن و نام، می‌توانی از template literal با علامت backtick استفاده کنی.",
+        "دکمهٔ «بررسی پاسخ من» را بزن."
+      ],
+      "exercisePath": "codemarket-exercises/01-greeting.js",
+      "starterCode": "function greet(name) {\n  return \"TODO\";\n}\n\nconsole.log(greet(\"Ada\"));\n",
+      "checks": [
+        {
+          "type": "containsAll",
+          "values": ["function greet", "Hello,", "${name}"],
+          "label": "تابع باید تعریف شده باشد و پیام Hello, همراه نام را داشته باشد."
+        },
+        {
+          "type": "doesNotContain",
+          "value": "TODO",
+          "label": "عبارت TODO را با پاسخ خودت جایگزین کن."
+        }
+      ]
+    },
+    {
+      "id": "constant-variable",
+      "title": "متغیر ثابت",
+      "goal": "با const یک متغیر بساز و مقدار JavaScript را در آن ذخیره کن.",
+      "content": "متغیر نامی برای نگهداری یک مقدار است. در JavaScript، const برای متغیری به کار می‌رود که دوباره به مقدار دیگری انتساب داده نمی‌شود.",
+      "steps": [
+        "فایل تمرین را باز کن.",
+        "مقدار TODO را به رشتهٔ JavaScript تغییر بده.",
+        "بررسی کن که نام متغیر language باقی مانده باشد.",
+        "پاسخت را بررسی کن."
+      ],
+      "exercisePath": "codemarket-exercises/02-constant.js",
+      "starterCode": "const language = \"TODO\";\nconsole.log(language);\n",
+      "checks": [
+        {
+          "type": "containsAll",
+          "values": ["const language", "JavaScript"],
+          "label": "باید متغیر language با const و مقدار JavaScript وجود داشته باشد."
+        },
+        {
+          "type": "doesNotContain",
+          "value": "TODO",
+          "label": "مقدار TODO را جایگزین کن."
+        }
+      ]
+    },
+    {
+      "id": "first-array",
+      "title": "اولین آرایه",
+      "goal": "یک آرایه بساز که دست‌کم نام دو زبان برنامه‌نویسی را داشته باشد.",
+      "content": "آرایه می‌تواند چند مقدار را در یک ساختار مرتب نگه دارد. در JavaScript آرایه با کروشه ساخته می‌شود و مقدارها با ویرگول از هم جدا می‌شوند.",
+      "steps": [
+        "فایل تمرین را باز کن.",
+        "به‌جای TODO دو رشتهٔ JavaScript و Python قرار بده.",
+        "مطمئن شو که نام متغیر languages تغییر نکرده است.",
+        "پاسخت را بررسی کن."
+      ],
+      "exercisePath": "codemarket-exercises/03-array.js",
+      "starterCode": "const languages = [\"TODO\"];\nconsole.log(languages);\n",
+      "checks": [
+        {
+          "type": "containsAll",
+          "values": ["const languages", "JavaScript", "Python"],
+          "label": "آرایه باید متغیر languages و نام JavaScript و Python را داشته باشد."
+        },
+        {
+          "type": "doesNotContain",
+          "value": "TODO",
+          "label": "مقدار TODO را جایگزین کن."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "codemarket-vscode",
+  "displayName": "CodeMarket — Interactive Learning",
+  "description": "An open-source foundation for interactive coding lessons inside VS Code.",
+  "version": "0.1.0",
+  "publisher": "codemarket-dev",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": ["Education"],
+  "keywords": ["education", "tutorial", "interactive learning", "courses"],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onView:codemarket.courseView",
+    "onCommand:codemarket.openCourse"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "codemarket.openCourse",
+        "title": "CodeMarket: Open Learning Panel"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codemarket",
+          "title": "CodeMarket",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "codemarket": [
+        {
+          "type": "webview",
+          "id": "codemarket.courseView",
+          "name": "Learn"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "check-types": "tsc --noEmit",
+    "test": "tsx --test test/*.test.ts",
+    "verify": "npm run check-types && npm test && npm run compile",
+    "vscode:prepublish": "npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.95.0",
+    "@vscode/vsce": "^3.2.0",
+    "esbuild": "^0.24.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
