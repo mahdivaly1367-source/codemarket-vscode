@@ -25,7 +25,8 @@ export interface CourseDefinition {
   schemaVersion: 1;
   id: string;
   title: string;
-  language: string;
+  programmingLanguage: string;
+  contentLocale: string;
   description: string;
   lessons: CourseLesson[];
 }

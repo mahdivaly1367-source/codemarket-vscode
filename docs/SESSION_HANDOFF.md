@@ -13,7 +13,7 @@ This file exists specifically so work can continue in a **new ChatGPT conversati
 
 ## Current repository/remote state
 
-The project source is initially prepared as a local Git repository. The connected GitHub tool available during the first build can inspect and edit existing repositories but does not expose a create-repository action, so do **not** claim that the GitHub remote was created or pushed unless a later session verifies it. The intended remote is `https://github.com/mahdivaly1367-source/codemarket-vscode` after the user creates it or an available tool successfully creates it. Never put this project into one of the user's unrelated repositories.
+The project source is initially prepared as a local Git repository. The connected GitHub tool available during the first build can inspect and edit existing repositories but does not expose a create-repository action, so do **not** claim that the GitHub remote was created or pushed unless a later session verifies it. A direct repository lookup returned HTTP 404 for the intended remote, so the remote is not published at this checkpoint. The intended remote is `https://github.com/mahdivaly1367-source/codemarket-vscode` after the user creates it or an available tool successfully creates it. Never put this project into one of the user's unrelated repositories.
 
 ## Origin of the product idea
 
@@ -24,7 +24,8 @@ The user explicitly chose for ChatGPT to build the project directly, in small ve
 ## What is implemented now
 
 - VS Code extension manifest and Activity Bar / Webview learning panel.
-- Bundled course `courses/javascript-foundations/course.json` with three JavaScript exercises.
+- Bundled course `courses/javascript-foundations/course.json` with three JavaScript exercises and Persian (`fa-IR`) instructional content.
+- Course metadata distinguishes `programmingLanguage` from `contentLocale`, to support future Persian, English, and other localized course variants.
 - Creates exercise files under the currently open workspace, without replacing an existing file.
 - Stores completed lesson IDs using VS Code `globalState`.
 - Checks source text with a small declarative check language (`containsAll` and `doesNotContain`).
@@ -39,7 +40,9 @@ The current checks are only literal-text checks. They can give false positives a
 
 ## Verification actually performed in the first build session
 
-- Six course-validator unit tests passed using the globally available Node test runner and `ts-node` (not the project's `npm test` command).
+- Initial committed implementation checkpoint: `c51e558629be04595f16e251596b036d601357d9`. Always query `git rev-parse HEAD` for the current latest commit; this checkpoint is not guaranteed to remain HEAD after follow-up fixes.
+
+- Eight course-validator unit tests passed using the globally available Node test runner and `ts-node` (not the project's `npm test` command).
 - TypeScript checks passed for the project source and test files using global `tsc`, Node typings available in the environment, and a temporary minimal VS Code declaration shim. This helps catch local errors but is not a replacement for compiling with the official `@types/vscode` package.
 - The embedded Webview JavaScript passed a syntax parse check.
 - `npm install` did not complete because the environment could not resolve `registry.npmjs.org` (`EAI_AGAIN`). Therefore `npm run verify`, the actual esbuild bundle, VS Code Extension Development Host testing, and VSIX packaging remain unverified.

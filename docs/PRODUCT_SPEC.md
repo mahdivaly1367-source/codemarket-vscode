@@ -16,9 +16,10 @@ CodeMarket is a VS Code-first learning product. Learners complete programming ex
 2. **Data-driven courses:** course content is data, not arbitrary executable extension code.
 3. **Safe by default:** no untrusted code executes on the learner's host.
 4. **Portable format:** lessons should be exportable and versioned.
-5. **Free core, optional commerce:** the extension may remain open source while course authors sell separately licensed content.
-6. **Honest assessment:** every checker must disclose what it actually verifies.
-7. **Incremental delivery:** build and test a vertical slice before adding accounts, payments, or a marketplace.
+5. **Multilingual by design:** distinguish the programming language from the language used for instructions; Persian and English are early targets, with additional major languages planned.
+6. **Free core, optional commerce:** the extension may remain open source while course authors sell separately licensed content.
+7. **Honest assessment:** every checker must disclose what it actually verifies.
+8. **Incremental delivery:** build and test a vertical slice before adding accounts, payments, or a marketplace.
 
 ## MVP scope (0.1)
 

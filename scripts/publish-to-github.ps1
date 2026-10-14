@@ -10,6 +10,14 @@ if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
     throw 'GitHub CLI (gh) is not installed. Install it, sign in with gh auth login, then rerun this script.'
 }
 
+$currentUser = gh api user --jq .login 2>$null
+if ($LASTEXITCODE -ne 0) {
+    throw 'GitHub CLI is not authenticated. Run gh auth login, then rerun this script.'
+}
+if ($currentUser -ne 'mahdivaly1367-source') {
+    throw "GitHub CLI is signed in as '$currentUser', but this project targets mahdivaly1367-source. Sign in with the intended account first."
+}
+
 $insideRepo = git rev-parse --is-inside-work-tree 2>$null
 if ($LASTEXITCODE -ne 0 -or $insideRepo -ne 'true') {
     git init -b main

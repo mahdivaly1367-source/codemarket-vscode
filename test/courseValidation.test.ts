@@ -51,3 +51,16 @@ test('unknown executable check types are rejected', () => {
   unsafe.lessons[0].checks[0] = { type: 'runShell', command: 'echo unsafe' };
   assert.equal(validateCourse(unsafe), false);
 });
+
+
+test('course rejects malformed feedback labels', () => {
+  const malformed = structuredClone(sampleCourse) as unknown as { lessons: Array<{ checks: Array<Record<string, unknown>> }> };
+  malformed.lessons[0].checks[0].label = { html: '<script>alert(1)</script>' };
+  assert.equal(validateCourse(malformed), false);
+});
+
+test('course rejects malformed instructional locale tags', () => {
+  const malformed = structuredClone(sampleCourse);
+  malformed.contentLocale = '../../en';
+  assert.equal(validateCourse(malformed), false);
+});

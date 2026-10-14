@@ -68,7 +68,9 @@ export function validateCourse(value: unknown): value is CourseDefinition {
   if (!isRecord(value)) return false;
   if (value.schemaVersion !== 1) return false;
   if (!isText(value.id, 100) || !/^[a-z0-9][a-z0-9-]*$/.test(value.id)) return false;
-  if (!isText(value.title, 200) || !isText(value.language, 80) || !isText(value.description, 2_000)) return false;
+  if (!isText(value.title, 200) || !isText(value.programmingLanguage, 80) || !/^[a-z0-9][a-z0-9-]*$/.test(value.programmingLanguage)) return false;
+  if (!isText(value.contentLocale, 35) || !/^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/.test(value.contentLocale)) return false;
+  if (!isText(value.description, 2_000)) return false;
   if (!Array.isArray(value.lessons) || value.lessons.length === 0 || value.lessons.length > MAX_LESSONS) return false;
   if (!value.lessons.every(validateLesson)) return false;
 

@@ -7,7 +7,8 @@ Courses are currently bundled as JSON and are not downloaded from a catalog. The
 - `schemaVersion`: currently `1`.
 - `id`: lowercase identifier with hyphens.
 - `title`: human-readable title.
-- `language`: programming language taught by the course.
+- `programmingLanguage`: lowercase identifier for the programming language taught (for example, `javascript` or `python`).
+- `contentLocale`: BCP-47-style tag for the language used by lesson instructions (for example, `fa-IR` or `en-US`). It is separate from the programming language so equivalent courses can later be localized.
 - `description`: short introduction.
 - `lessons`: ordered list of lesson objects.
 

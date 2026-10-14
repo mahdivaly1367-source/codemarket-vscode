@@ -2,7 +2,8 @@
   "schemaVersion": 1,
   "id": "javascript-foundations",
   "title": "JavaScript Foundations",
-  "language": "JavaScript",
+  "programmingLanguage": "javascript",
+  "contentLocale": "fa-IR",
   "description": "یک دورهٔ کوتاه آزمایشی برای آزمودن مسیر یادگیری تعاملی CodeMarket.",
   "lessons": [
     {

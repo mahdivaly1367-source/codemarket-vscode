@@ -82,7 +82,8 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
       type: 'state',
       course: {
         title: this.course.title,
-        language: this.course.language,
+        programmingLanguage: this.course.programmingLanguage,
+        contentLocale: this.course.contentLocale,
         description: this.course.description,
         lessons: this.course.lessons.map(({ id, title, goal, exercisePath }) => ({ id, title, goal, exercisePath }))
       },
@@ -168,11 +169,22 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
 
     try {
       const fileUri = await this.resolveSafeWorkspacePath(root, lesson.exercisePath, false);
-      const stat = await vscode.workspace.fs.stat(fileUri);
+      let stat: vscode.FileStat;
+      try {
+        stat = await vscode.workspace.fs.stat(fileUri);
+      } catch (error) {
+        if (isFileNotFound(error)) {
+          throw new Error('فایل تمرین پیدا نشد؛ ابتدا «ایجاد / بازکردن فایل تمرین» را بزن.');
+        }
+        throw error;
+      }
       if (stat.size > MAX_EXERCISE_BYTES) {
         throw new Error('فایل تمرین بیش از اندازه بزرگ است؛ محدودیت این نسخه ۵۱۲ کیلوبایت است.');
       }
       const bytes = await vscode.workspace.fs.readFile(fileUri);
+      if (bytes.byteLength > MAX_EXERCISE_BYTES) {
+        throw new Error('فایل تمرین هنگام خواندن از محدودیت اندازه عبور کرد.');
+      }
       const source = Buffer.from(bytes).toString('utf8');
       const results = evaluateChecks(source, lesson.checks);
       const passed = results.length > 0 && results.every((result) => result.passed);
@@ -200,7 +212,7 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
     const csp = `default-src 'none'; style-src 'nonce-${nonce}'; script-src 'nonce-${nonce}';`;
 
     return `<!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -215,10 +227,11 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
     h2 { font-size:15px; line-height:1.4; margin:15px 0 7px; }
     p { line-height:1.6; }
     .muted { color:var(--vscode-descriptionForeground); font-size:12px; }
+    #course-meta { direction:ltr; text-align:left; }
     .progress-track { width:100%; height:5px; background:var(--vscode-panel-border); border-radius:5px; overflow:hidden; margin:8px 0 4px; }
     .progress-fill { width:0; height:100%; background:var(--vscode-testing-iconPassed); transition:width .15s ease; }
     #lesson-list { display:grid; gap:6px; padding:0; margin:12px 0; list-style:none; }
-    .lesson-button { display:block; width:100%; text-align:left; padding:9px; color:var(--vscode-foreground); background:var(--vscode-sideBar-background); border:1px solid var(--vscode-panel-border); border-radius:5px; cursor:pointer; }
+    .lesson-button { display:block; width:100%; text-align:right; padding:9px; color:var(--vscode-foreground); background:var(--vscode-sideBar-background); border:1px solid var(--vscode-panel-border); border-radius:5px; cursor:pointer; }
     .lesson-button[aria-current="true"] { border-color:var(--vscode-focusBorder); }
     .lesson-button strong { display:block; font-size:12px; line-height:1.5; }
     .lesson-button small { display:block; margin-top:3px; color:var(--vscode-descriptionForeground); line-height:1.4; }
@@ -227,7 +240,7 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
     .steps { padding-inline-start:20px; line-height:1.7; }
     code, pre { font-family:var(--vscode-editor-font-family); }
     code { overflow-wrap:anywhere; }
-    .path { display:block; border:1px solid var(--vscode-panel-border); border-radius:4px; padding:6px; font-size:11px; overflow-wrap:anywhere; }
+    .path { display:block; direction:ltr; text-align:left; border:1px solid var(--vscode-panel-border); border-radius:4px; padding:6px; font-size:11px; overflow-wrap:anywhere; }
     .actions { display:grid; gap:7px; margin:13px 0; }
     button.action { width:100%; padding:7px 10px; border-radius:3px; border:1px solid var(--vscode-button-border, transparent); background:var(--vscode-button-background); color:var(--vscode-button-foreground); cursor:pointer; }
     button.action.secondary { background:var(--vscode-button-secondaryBackground); color:var(--vscode-button-secondaryForeground); }
@@ -243,6 +256,7 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
 <body>
   <div class="brand"><div class="brand-mark">C</div><div><h1>CodeMarket</h1><div class="muted">یادگیری تعاملی در VS Code</div></div></div>
   <p id="course-description" class="muted">در حال بارگذاری دوره…</p>
+  <div id="course-meta" class="muted"></div>
   <div id="progress-label" class="muted">پیشرفت: ۰ از ۰ درس</div>
   <div class="progress-track" aria-hidden="true"><div id="progress-fill" class="progress-fill"></div></div>
   <ul id="lesson-list" aria-label="فهرست درس‌ها"></ul>
@@ -280,6 +294,7 @@ export class CourseViewProvider implements vscode.WebviewViewProvider {
       selectedLessonId = next.lesson?.id ?? null;
       completedIds = Array.isArray(next.completedIds) ? next.completedIds : [];
       setText('course-description', next.course.description);
+      setText('course-meta', next.course.programmingLanguage + ' · ' + next.course.contentLocale);
       const total = next.course.lessons.length;
       setText('progress-label', 'پیشرفت: ' + completedIds.length + ' از ' + total + ' درس');
       el('progress-fill').style.width = (total ? Math.min(100, completedIds.length / total * 100) : 0) + '%';
