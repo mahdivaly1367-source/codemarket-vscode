@@ -9,9 +9,11 @@
 - [x] Declarative non-executing checks
 - [x] Course and path validation
 - [x] First automated tests
-- [ ] Run dependency install, typecheck, tests, and bundle in the project environment
-- [ ] Manual Extension Development Host smoke test
-- [ ] Fix defects revealed by real smoke tests
+- [x] Dependency installation, type checking, unit tests, and extension bundle verified in GitHub Actions
+- [x] Core manual Extension Development Host smoke test: all three bundled lessons, completion persistence after relaunch, and non-overwrite behavior
+- [ ] Complete remaining smoke checks: no open workspace, missing exercise feedback, Webview injection resistance, and keyboard navigation
+- [ ] Run `npm run verify` locally in the user's Windows checkout
+- [ ] Fix any defects revealed by the remaining smoke checks
 
 ## Phase 1 — Assessment quality
 
